@@ -1,0 +1,7 @@
+node_modules/
+tobi_auth/
+auth_info*/
+auth/
+.env
+*.log
+.DS_Store
