@@ -52,7 +52,7 @@ Optional (only needed for QR images / terminal QR):
 ## Quick start — QR code
 
 ```js
-const { makeWASocket, useMultiFileAuthState, DisconnectReason, Browsers } = require('tobi')
+const { makeWASocket, useMultiFileAuthState, DisconnectReason, Browsers } = require('tobi-devv')
 
 const start = async () => {
 	const { state, saveCreds } = await useMultiFileAuthState('./tobi_auth')
@@ -116,7 +116,7 @@ The code lives for a few minutes; the socket reconnects automatically after a su
 ## Sending messages
 
 ```js
-const { text, image, video, document, buttons, quickReplyButton, urlButton, list, reaction } = require('tobi')
+const { text, image, video, document, buttons, quickReplyButton, urlButton, list, reaction } = require('tobi-devv')
 
 // text
 await sock.sendMessage(jid, text('hello'))
