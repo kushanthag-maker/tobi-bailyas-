@@ -5,3 +5,4 @@ auth/
 .env
 *.log
 .DS_Store
+*.tgz

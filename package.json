@@ -10,7 +10,8 @@
     "lib/",
     "example/",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "test/"
   ],
   "scripts": {
     "test": "node test/run.js",

@@ -328,7 +328,13 @@ const main = async () => {
 		const keyEnc = client.encrypt(clientStatic.public)
 		const readStatic = server.decrypt(keyEnc)
 		assert.ok(readStatic.equals(clientStatic.public), 'server must recover the client static key')
+		// the closing 'se' token of Noise XX: BOTH sides mix the
+		// client-static / server-ephemeral DH. this test used to mix it on the
+		// server only, so the two sides reached finishInit with different salts
+		// and derived different transport keys (the library's own
+		// processHandshake() performs this mix itself).
 		server.mix(crypto.x25519.sharedKey(serverEphemeral.privateKey, readStatic))
+		client.mixIntoKey(crypto.x25519.sharedKey(clientStatic.private, serverEphemeral.publicKey))
 
 		// both sides derive transport keys
 		client.finishInit()
