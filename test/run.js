@@ -79,6 +79,12 @@ const makeMirrorServer = (clientStaticPublicKey) => {
 	let encKey = hash
 	let decKey = hash
 	let counter = 0
+	// transport keeps SEPARATE read/write counters (exactly like the handler's
+	// TransportState). a single shared counter drifts as soon as one direction
+	// has been used, so the reply would be encrypted with IV 1 while the client
+	// still expects IV 0.
+	let readCounter = 0
+	let writeCounter = 0
 	let transport = false
 
 	const iv = (c) => {
@@ -91,12 +97,14 @@ const makeMirrorServer = (clientStaticPublicKey) => {
 	}
 	const ad = () => (transport ? empty : hash)
 	const encrypt = (plaintext) => {
-		const result = crypto.aesEncryptGCM(plaintext, encKey, iv(counter++), ad())
+		const c = transport ? writeCounter++ : counter++
+		const result = crypto.aesEncryptGCM(plaintext, encKey, iv(c), ad())
 		if (!transport) auth(result)
 		return result
 	}
 	const decrypt = (ciphertext) => {
-		const result = crypto.aesDecryptGCM(ciphertext, decKey, iv(counter++), ad())
+		const c = transport ? readCounter++ : counter++
+		const result = crypto.aesDecryptGCM(ciphertext, decKey, iv(c), ad())
 		if (!transport) auth(ciphertext)
 		return result
 	}
@@ -114,6 +122,8 @@ const makeMirrorServer = (clientStaticPublicKey) => {
 		encKey = key.subarray(32)
 		decKey = key.subarray(0, 32)
 		counter = 0
+		readCounter = 0
+		writeCounter = 0
 		transport = true
 	}
 
