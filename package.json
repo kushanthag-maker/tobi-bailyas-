@@ -1,5 +1,5 @@
 {
-  "name": "tobi-devv",
+  "name": "tobi-baileys",
   "version": "1.0.0",
   "description": "tobi - a from-scratch WhatsApp multi-device Web protocol library (Noise handshake, WABinary codec, Signal E2E, protobuf). QR code and pairing code linking, buttons, lists, streaming media. Zero Baileys code.",
   "main": "index.js",
@@ -46,5 +46,9 @@
   "homepage": "https://github.com/kushanthag-maker/tobi-bailyas-#readme",
   "bugs": {
     "url": "https://github.com/kushanthag-maker/tobi-bailyas-/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
