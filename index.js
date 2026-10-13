@@ -10,6 +10,7 @@
  */
 const { makeWASocket, TobiSocket } = require('./lib/Socket')
 const { useMultiFileAuthState } = require('./lib/Signal/store')
+const { useMongoAuthState } = require('./lib/Signal/mongo-store')
 const { initAuthCreds, signedKeyPair, configureSuccessfulPairing, generateRegistrationId } = require('./lib/Utils/auth-utils')
 const generics = require('./lib/Utils/generics')
 const messages = require('./lib/Utils/messages')
@@ -27,6 +28,7 @@ module.exports = {
 	makeWASocket,
 	TobiSocket,
 	useMultiFileAuthState,
+	useMongoAuthState,
 
 	// credentials
 	initAuthCreds,
