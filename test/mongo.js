@@ -6,7 +6,7 @@
 const fs = require('fs')
 const assert = require('assert')
 const { useMongoAuthState } = require('../lib/Signal/mongo-store')
-const { generatePairingCode } = require('../lib/Utils/generics')
+const { generatePairingCode } = require('..')
 
 const envUri = () => {
 	if (process.env.MONGODB_URI) return process.env.MONGODB_URI
@@ -35,7 +35,7 @@ const envUri = () => {
 	// signal key round trip
 	const record = { _sessions: { 'abc.1': { sessionVersion: 3 } }, chain: Buffer.from([1, 2, 3, 250]) }
 	await first.state.keys.set({ session: { '94771234567.1': record } })
-	await first.state.keys.set({ pre-key: { '1': { keyId: 1, keyPair: { public: Buffer.from([9, 8, 7]), private: Buffer.from([1, 1, 1]) } } } })
+	await first.state.keys.set({ 'pre-key': { '1': { keyId: 1, keyPair: { public: Buffer.from([9, 8, 7]), private: Buffer.from([1, 1, 1]) } } } })
 	console.log('  ok   wrote a session + a pre-key')
 
 	// a SECOND client (fresh connection) must see the same state
